@@ -7,17 +7,21 @@ public partial class MainWindow
 
 	private global::Gtk.ScrolledWindow GtkScrolledWindow;
 
-	private global::Gtk.TextView textview1;
+	private global::Gtk.TextView programTexton;
 
-	private global::Gtk.Entry entry1;
+	private global::Gtk.Entry initState;
 
 	private global::Gtk.ScrolledWindow GtkScrolledWindow1;
 
 	private global::Gtk.TextView textview2;
 
-	private global::Gtk.Button Turing;
+	private global::Gtk.Button turingBtn;
 
 	private global::Gtk.Button markovBtn;
+
+	private global::Gtk.Button saveProgramText;
+
+	private global::Gtk.Button loadProgramTextBtn;
 
 	protected virtual void Build()
 	{
@@ -37,23 +41,25 @@ public partial class MainWindow
 		this.GtkScrolledWindow.Name = "GtkScrolledWindow";
 		this.GtkScrolledWindow.ShadowType = ((global::Gtk.ShadowType)(1));
 		// Container child GtkScrolledWindow.Gtk.Container+ContainerChild
-		this.textview1 = new global::Gtk.TextView();
-		this.textview1.CanFocus = true;
-		this.textview1.Name = "textview1";
-		this.GtkScrolledWindow.Add(this.textview1);
+		this.programTexton = new global::Gtk.TextView();
+		this.programTexton.Buffer.Text = "q1 '0'->q1 '1' R\nq1 '1'->q1 '2' R\nq1 '2'->q1 '0' R";
+		this.programTexton.CanFocus = true;
+		this.programTexton.Name = "programTexton";
+		this.GtkScrolledWindow.Add(this.programTexton);
 		this.fixed1.Add(this.GtkScrolledWindow);
 		global::Gtk.Fixed.FixedChild w2 = ((global::Gtk.Fixed.FixedChild)(this.fixed1[this.GtkScrolledWindow]));
 		w2.X = 5;
 		w2.Y = 5;
 		// Container child fixed1.Gtk.Fixed+FixedChild
-		this.entry1 = new global::Gtk.Entry();
-		this.entry1.WidthRequest = 790;
-		this.entry1.CanFocus = true;
-		this.entry1.Name = "entry1";
-		this.entry1.IsEditable = true;
-		this.entry1.InvisibleChar = '●';
-		this.fixed1.Add(this.entry1);
-		global::Gtk.Fixed.FixedChild w3 = ((global::Gtk.Fixed.FixedChild)(this.fixed1[this.entry1]));
+		this.initState = new global::Gtk.Entry();
+		this.initState.WidthRequest = 790;
+		this.initState.CanFocus = true;
+		this.initState.Name = "initState";
+		this.initState.Text = global::Mono.Unix.Catalog.GetString("012");
+		this.initState.IsEditable = true;
+		this.initState.InvisibleChar = '●';
+		this.fixed1.Add(this.initState);
+		global::Gtk.Fixed.FixedChild w3 = ((global::Gtk.Fixed.FixedChild)(this.fixed1[this.initState]));
 		w3.X = 5;
 		w3.Y = 260;
 		// Container child fixed1.Gtk.Fixed+FixedChild
@@ -72,13 +78,13 @@ public partial class MainWindow
 		w5.X = 5;
 		w5.Y = 320;
 		// Container child fixed1.Gtk.Fixed+FixedChild
-		this.Turing = new global::Gtk.Button();
-		this.Turing.CanFocus = true;
-		this.Turing.Name = "Turing";
-		this.Turing.UseUnderline = true;
-		this.Turing.Label = global::Mono.Unix.Catalog.GetString("Розглядати як алгоритм тьюринга");
-		this.fixed1.Add(this.Turing);
-		global::Gtk.Fixed.FixedChild w6 = ((global::Gtk.Fixed.FixedChild)(this.fixed1[this.Turing]));
+		this.turingBtn = new global::Gtk.Button();
+		this.turingBtn.CanFocus = true;
+		this.turingBtn.Name = "turingBtn";
+		this.turingBtn.UseUnderline = true;
+		this.turingBtn.Label = global::Mono.Unix.Catalog.GetString("Розглядати як алгоритм тьюринга");
+		this.fixed1.Add(this.turingBtn);
+		global::Gtk.Fixed.FixedChild w6 = ((global::Gtk.Fixed.FixedChild)(this.fixed1[this.turingBtn]));
 		w6.X = 5;
 		w6.Y = 285;
 		// Container child fixed1.Gtk.Fixed+FixedChild
@@ -91,6 +97,26 @@ public partial class MainWindow
 		global::Gtk.Fixed.FixedChild w7 = ((global::Gtk.Fixed.FixedChild)(this.fixed1[this.markovBtn]));
 		w7.X = 225;
 		w7.Y = 285;
+		// Container child fixed1.Gtk.Fixed+FixedChild
+		this.saveProgramText = new global::Gtk.Button();
+		this.saveProgramText.CanFocus = true;
+		this.saveProgramText.Name = "saveProgramText";
+		this.saveProgramText.UseUnderline = true;
+		this.saveProgramText.Label = global::Mono.Unix.Catalog.GetString("Зберегти текст програми");
+		this.fixed1.Add(this.saveProgramText);
+		global::Gtk.Fixed.FixedChild w8 = ((global::Gtk.Fixed.FixedChild)(this.fixed1[this.saveProgramText]));
+		w8.X = 440;
+		w8.Y = 285;
+		// Container child fixed1.Gtk.Fixed+FixedChild
+		this.loadProgramTextBtn = new global::Gtk.Button();
+		this.loadProgramTextBtn.CanFocus = true;
+		this.loadProgramTextBtn.Name = "loadProgramTextBtn";
+		this.loadProgramTextBtn.UseUnderline = true;
+		this.loadProgramTextBtn.Label = global::Mono.Unix.Catalog.GetString("Завантажити текст програми");
+		this.fixed1.Add(this.loadProgramTextBtn);
+		global::Gtk.Fixed.FixedChild w9 = ((global::Gtk.Fixed.FixedChild)(this.fixed1[this.loadProgramTextBtn]));
+		w9.X = 610;
+		w9.Y = 285;
 		this.Add(this.fixed1);
 		if ((this.Child != null))
 		{
