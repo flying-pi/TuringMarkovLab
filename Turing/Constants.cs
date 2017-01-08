@@ -6,5 +6,6 @@ namespace Turing
 		public const string emptyTuringSymbol = "@";
 
 		public const string simpleArrow = "->";
+		public const string stopArrow = "|->";
 	}
 }

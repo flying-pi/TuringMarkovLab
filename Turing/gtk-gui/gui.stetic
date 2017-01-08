@@ -33,9 +33,12 @@
                 <property name="MemberName" />
                 <property name="CanFocus">True</property>
                 <property name="ShowScrollbars">True</property>
-                <property name="Text" translatable="yes">q1 '0'-&gt;q1 '1' R
-q1 '1'-&gt;q1 '2' R
-q1 '2'-&gt;q1 '0' R</property>
+                <property name="Text" translatable="yes">'*a'|-&gt;'b'
+'*b'-&gt;'b*'
+'*c'-&gt;'c*'
+'*d'-&gt;'d*'
+'*'|-&gt;
+'a'-&gt;'a*'</property>
               </widget>
             </child>
           </widget>
@@ -49,9 +52,8 @@ q1 '2'-&gt;q1 '0' R</property>
             <property name="MemberName" />
             <property name="WidthRequest">790</property>
             <property name="CanFocus">True</property>
-            <property name="Text" translatable="yes">012</property>
+            <property name="Text" translatable="yes">dcadca</property>
             <property name="IsEditable">True</property>
-            <property name="InvisibleChar">●</property>
           </widget>
           <packing>
             <property name="X">5</property>

@@ -7,9 +7,11 @@ public partial class MainWindow : Gtk.Window
 	public MainWindow() : base(Gtk.WindowType.Toplevel)
 	{
 		Build();
-		this.turingBtn.Clicked += this.onTuringClick;
 		this.loadProgramTextBtn.Clicked += this.onLoadBtnClick;
 		this.saveProgramText.Clicked += this.osSaveProgramm;
+
+		this.markovBtn.Clicked += this.onAlgoritmBtnClick;
+		this.turingBtn.Clicked += this.onAlgoritmBtnClick;
 	}
 
 	protected void OnDeleteEvent(object sender, DeleteEventArgs a)
@@ -17,7 +19,17 @@ public partial class MainWindow : Gtk.Window
 		Application.Quit();
 		a.RetVal = true;
 	}
-	private void onTuringClick(object obj, EventArgs args)
+
+	private void onAlgoritmBtnClick(object obj, EventArgs args)
+	{
+		string sourceCode = programTexton.Buffer.Text;
+		IAlghoritm alg;
+		if (obj == turingBtn) alg = new TuringAlg(sourceCode);
+		else alg = new MarkovAlg(sourceCode);
+		initState.Text = alg.calculate(initState.Text);
+	}
+
+	private void onMarkovClick(object obj, EventArgs args)
 	{
 		TuringAlg alg = new TuringAlg(programTexton.Buffer.Text);
 		initState.Text = alg.calculate(initState.Text);

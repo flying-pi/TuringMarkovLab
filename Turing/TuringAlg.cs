@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Turing
 {
-	public class TuringAlg
+	public class TuringAlg:IAlghoritm
 	{
 		string[] alphabit;
 		string[] comands;

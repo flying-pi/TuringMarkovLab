@@ -63,6 +63,8 @@
     <Compile Include="TuringDisplay.cs" />
     <Compile Include="gtk-gui\Turing.TuringDisplay.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="MarkovAlg.cs" />
+    <Compile Include="IAlghoritm.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
