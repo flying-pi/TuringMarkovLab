@@ -69,8 +69,10 @@ public partial class MainWindow
 		this.GtkScrolledWindow1.ShadowType = ((global::Gtk.ShadowType)(1));
 		// Container child GtkScrolledWindow1.Gtk.Container+ContainerChild
 		this.textview2 = new global::Gtk.TextView();
+		this.textview2.Buffer.Text = "Программа розрахована на емуляцію машини Т'юрінга та на ємуляцію роботи нормальних алгоритмів Маркова. \n\nПеревірок на те чи відповіда программа вибраній категорії нема,  треба бути обережним) \n\nДля запису елементів алфовіту чи фраз слід використувати одинарні кавички(') \n\nДля запису переходів слід використовувати послідовність \"стрілочка\" -> та кінцева стрілочка для алгоримів Маркова |-> \n\nДля запису команд машини тюринга слід дотримуватись наступних правил:\n\t- команди можна відділяти за допомогою знаку табуляції або переносу на нову строку.  Послідовність не має значення \n\t- стан описується літерою q та його порядковим номером \n\t- для позначення переміщень використовують літери R та L для переміщення вправо та вліво відповідно \n\t- символ \"собачка\" зарезервований для позначення попрожньої комірки \n\t- стан q0 зарезервований для закінчення програми";
 		this.textview2.CanFocus = true;
 		this.textview2.Name = "textview2";
+		this.textview2.Editable = false;
 		this.GtkScrolledWindow1.Add(this.textview2);
 		this.fixed1.Add(this.GtkScrolledWindow1);
 		global::Gtk.Fixed.FixedChild w5 = ((global::Gtk.Fixed.FixedChild)(this.fixed1[this.GtkScrolledWindow1]));
