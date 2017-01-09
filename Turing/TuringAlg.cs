@@ -3,8 +3,23 @@ using System.Collections.Generic;
 
 namespace Turing
 {
-	public class TuringAlg:IAlghoritm
+	public delegate void TuringMoveEventHandler(object sender, TuringMoveEventArgs e);
+
+	public class TuringMoveEventArgs : EventArgs
 	{
+		public TuringMoveEventArgs(List<string> _elements, int _currentPosition)
+		{
+			elements = _elements;
+			currentPosition = _currentPosition;
+		}
+		public List<string> elements;
+		public int currentPosition;
+	}
+
+	public class TuringAlg : IAlghoritm
+	{
+		public event TuringMoveEventHandler MoveEvent;
+
 		string[] alphabit;
 		string[] comands;
 		ComandDescription[,] programm;
@@ -12,6 +27,7 @@ namespace Turing
 		int currentPosition = 0;
 		int currentMachineState = 0;
 		int zeroPosition = 0;
+
 		public TuringAlg(string rawCode)
 		{
 			while (rawCode.Contains("  "))
@@ -37,6 +53,8 @@ namespace Turing
 			if (type.Count == 0 || type[type.Count - 1] != Constants.emptyTuringSymbol)
 				type.Add(Constants.emptyTuringSymbol);
 			currentPosition = 0;
+			if(MoveEvent!=null)
+				MoveEvent(this, new TuringMoveEventArgs(type, zeroPosition + currentPosition));
 		}
 
 		public string getCurrentState()
@@ -58,20 +76,17 @@ namespace Turing
 		{
 			ComandDescription currentStep = programm[currentMachineState,
 													 alphabitIndex(type[zeroPosition + currentPosition])];
-			if (currentStep == null)
-			{
+			if (currentStep == null) {
 				//todo  add error sender
 				return false;
 			}
-			if (currentStep.isEnd)
-			{
+			if (currentStep.isEnd) {
 				//todo  add error sender
 				return false;
 			}
 			type.RemoveAt(zeroPosition + currentPosition);
 			type.Insert(zeroPosition + currentPosition, alphabit[currentStep.newSymbol]);
-			switch (currentStep.move)
-			{
+			switch (currentStep.move) {
 				case moveType.none:
 					break;
 				case moveType.left:
@@ -84,14 +99,15 @@ namespace Turing
 					throw new ArgumentOutOfRangeException();
 			}
 
-			while ((zeroPosition + currentPosition) < 0)
-			{
+			while ((zeroPosition + currentPosition) < 0) {
 				type.Insert(0, Constants.emptyTuringSymbol);
 				zeroPosition++;
 			}
 			while ((zeroPosition + currentPosition) >= type.Count)
 				type.Add(Constants.emptyTuringSymbol);
 			currentMachineState = currentStep.newState;
+			if (MoveEvent != null)
+				MoveEvent(this, new TuringMoveEventArgs(type, zeroPosition + currentPosition));
 
 			return true;
 		}
@@ -99,23 +115,19 @@ namespace Turing
 		private void parseProgram(List<string> comandsList)
 		{
 			for (int i = 0; i < comands.Length; i++)
-				for (int j = 0; j < alphabit.Length; j++)
-				{
-					if (i == 0)
-					{
+				for (int j = 0; j < alphabit.Length; j++) {
+					if (i == 0) {
 						ComandDescription newComand = new ComandDescription();
 						newComand.newState = 0;
 						newComand.newSymbol = 0;
 						newComand.move = moveType.none;
 						newComand.isEnd = true;
 						programm[i, j] = newComand;
-					}
-					else {
+					} else {
 						programm[i, j] = null;
 					}
 				}
-			foreach (var comand in comandsList)
-			{
+			foreach (var comand in comandsList) {
 				string[] comandsPut = comand.Split(new string[] { Constants.simpleArrow }, StringSplitOptions.None);
 				string[] fromData = comandsPut[0].Split(new char[] { ' ' });
 				string[] toData = comandsPut[1].Split(new char[] { ' ' });
@@ -132,11 +144,9 @@ namespace Turing
 		{
 			List<string> comandsList = new List<string>();
 			var splitResult = rawCode.Split(new char[] { '\n' });
-			foreach (var line in splitResult)
-			{
+			foreach (var line in splitResult) {
 				var lineSplit = line.Split(new char[] { '\t' });
-				foreach (var s in lineSplit)
-				{
+				foreach (var s in lineSplit) {
 					comandsList.Add(s);
 				}
 			}
@@ -152,11 +162,9 @@ namespace Turing
 			comandNameSet.Add("q0");
 			string[] comandPuts;
 			string[] elements;
-			foreach (var s in comandsList)
-			{
+			foreach (var s in comandsList) {
 				comandPuts = s.Split(new string[] { Constants.simpleArrow }, StringSplitOptions.None);
-				for (int i = 0; i < 2; i++)
-				{
+				for (int i = 0; i < 2; i++) {
 					elements = comandPuts[i].Split(new char[] { ' ' });
 					comandNameSet.Add(elements[0]);
 					alphabitSet.Add(elements[1].Replace("'", ""));

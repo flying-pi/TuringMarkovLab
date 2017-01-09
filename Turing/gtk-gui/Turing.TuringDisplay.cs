@@ -8,7 +8,15 @@ namespace Turing
 
 		private global::Gtk.ScrolledWindow scrolledwindow1;
 
-		private global::Gtk.DrawingArea turing_code;
+		private global::Gtk.DrawingArea turingCode;
+
+		private global::Gtk.Button nextStepBtn;
+
+		private global::Gtk.Button runToEnd;
+
+		private global::Gtk.Button showLog;
+
+		private global::Gtk.ScrolledWindow turingAruaContainer;
 
 		private global::Gtk.DrawingArea turingAria;
 
@@ -16,6 +24,7 @@ namespace Turing
 		{
 			global::Stetic.Gui.Initialize(this);
 			// Widget Turing.TuringDisplay
+			this.WidthRequest = 700;
 			this.Name = "Turing.TuringDisplay";
 			this.Title = global::Mono.Unix.Catalog.GetString("TuringDisplay");
 			this.WindowPosition = ((global::Gtk.WindowPosition)(4));
@@ -34,29 +43,68 @@ namespace Turing
 			global::Gtk.Viewport w1 = new global::Gtk.Viewport();
 			w1.ShadowType = ((global::Gtk.ShadowType)(0));
 			// Container child GtkViewport.Gtk.Container+ContainerChild
-			this.turing_code = new global::Gtk.DrawingArea();
-			this.turing_code.Name = "turing_code";
-			w1.Add(this.turing_code);
+			this.turingCode = new global::Gtk.DrawingArea();
+			this.turingCode.Name = "turingCode";
+			w1.Add(this.turingCode);
 			this.scrolledwindow1.Add(w1);
 			this.fixed2.Add(this.scrolledwindow1);
 			global::Gtk.Fixed.FixedChild w4 = ((global::Gtk.Fixed.FixedChild)(this.fixed2[this.scrolledwindow1]));
 			w4.X = 5;
 			w4.Y = 5;
 			// Container child fixed2.Gtk.Fixed+FixedChild
-			this.turingAria = new global::Gtk.DrawingArea();
-			this.turingAria.WidthRequest = 690;
-			this.turingAria.HeightRequest = 75;
-			this.turingAria.Name = "turingAria";
-			this.fixed2.Add(this.turingAria);
-			global::Gtk.Fixed.FixedChild w5 = ((global::Gtk.Fixed.FixedChild)(this.fixed2[this.turingAria]));
+			this.nextStepBtn = new global::Gtk.Button();
+			this.nextStepBtn.CanFocus = true;
+			this.nextStepBtn.Name = "nextStepBtn";
+			this.nextStepBtn.UseUnderline = true;
+			this.nextStepBtn.Label = global::Mono.Unix.Catalog.GetString("Наступний крок");
+			this.fixed2.Add(this.nextStepBtn);
+			global::Gtk.Fixed.FixedChild w5 = ((global::Gtk.Fixed.FixedChild)(this.fixed2[this.nextStepBtn]));
 			w5.X = 5;
-			w5.Y = 425;
+			w5.Y = 375;
+			// Container child fixed2.Gtk.Fixed+FixedChild
+			this.runToEnd = new global::Gtk.Button();
+			this.runToEnd.CanFocus = true;
+			this.runToEnd.Name = "runToEnd";
+			this.runToEnd.UseUnderline = true;
+			this.runToEnd.Label = global::Mono.Unix.Catalog.GetString("Запустити до кінця без зупинок");
+			this.fixed2.Add(this.runToEnd);
+			global::Gtk.Fixed.FixedChild w6 = ((global::Gtk.Fixed.FixedChild)(this.fixed2[this.runToEnd]));
+			w6.X = 120;
+			w6.Y = 375;
+			// Container child fixed2.Gtk.Fixed+FixedChild
+			this.showLog = new global::Gtk.Button();
+			this.showLog.CanFocus = true;
+			this.showLog.Name = "showLog";
+			this.showLog.UseUnderline = true;
+			this.showLog.Label = global::Mono.Unix.Catalog.GetString("Показати лог виконання программи");
+			this.fixed2.Add(this.showLog);
+			global::Gtk.Fixed.FixedChild w7 = ((global::Gtk.Fixed.FixedChild)(this.fixed2[this.showLog]));
+			w7.X = 330;
+			w7.Y = 375;
+			// Container child fixed2.Gtk.Fixed+FixedChild
+			this.turingAruaContainer = new global::Gtk.ScrolledWindow();
+			this.turingAruaContainer.WidthRequest = 690;
+			this.turingAruaContainer.HeightRequest = 35;
+			this.turingAruaContainer.CanFocus = true;
+			this.turingAruaContainer.Name = "turingAruaContainer";
+			this.turingAruaContainer.ShadowType = ((global::Gtk.ShadowType)(1));
+			// Container child turingAruaContainer.Gtk.Container+ContainerChild
+			global::Gtk.Viewport w8 = new global::Gtk.Viewport();
+			w8.ShadowType = ((global::Gtk.ShadowType)(0));
+			// Container child GtkViewport1.Gtk.Container+ContainerChild
+			this.turingAria = new global::Gtk.DrawingArea();
+			this.turingAria.Name = "turingAria";
+			w8.Add(this.turingAria);
+			this.turingAruaContainer.Add(w8);
+			this.fixed2.Add(this.turingAruaContainer);
+			global::Gtk.Fixed.FixedChild w11 = ((global::Gtk.Fixed.FixedChild)(this.fixed2[this.turingAruaContainer]));
+			w11.X = 5;
+			w11.Y = 430;
 			this.Add(this.fixed2);
-			if ((this.Child != null))
-			{
+			if ((this.Child != null)) {
 				this.Child.ShowAll();
 			}
-			this.DefaultWidth = 705;
+			this.DefaultWidth = 795;
 			this.DefaultHeight = 525;
 			this.Show();
 		}

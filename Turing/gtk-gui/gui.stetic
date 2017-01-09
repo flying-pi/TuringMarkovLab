@@ -2,10 +2,11 @@
 <stetic-interface>
   <configuration>
     <images-root-path>..</images-root-path>
+    <target-gtk-version>2.12</target-gtk-version>
   </configuration>
   <import>
-    <widget-library name="glade-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
     <widget-library name="../bin/Debug/Turing.exe" internal="true" />
+    <widget-library name="glade-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
   </import>
   <widget class="Gtk.Window" id="MainWindow" design-size="805 620">
     <property name="MemberName" />
@@ -33,12 +34,9 @@
                 <property name="MemberName" />
                 <property name="CanFocus">True</property>
                 <property name="ShowScrollbars">True</property>
-                <property name="Text" translatable="yes">'*a'|-&gt;'b'
-'*b'-&gt;'b*'
-'*c'-&gt;'c*'
-'*d'-&gt;'d*'
-'*'|-&gt;
-'a'-&gt;'a*'</property>
+                <property name="Text" translatable="yes">q1 '0'-&gt;q1 '1' R
+q1 '1'-&gt;q1 '2' R
+q1 '2'-&gt;q1 '0' R</property>
               </widget>
             </child>
           </widget>
@@ -52,7 +50,7 @@
             <property name="MemberName" />
             <property name="WidthRequest">790</property>
             <property name="CanFocus">True</property>
-            <property name="Text" translatable="yes">dcadca</property>
+            <property name="Text" translatable="yes">11220011122002102100102010201010102010201020100201010102010201201112121210021120100102010101021020010101010201010100102010101010210020101111212121212110102010201212102020200202202222202</property>
             <property name="IsEditable">True</property>
           </widget>
           <packing>
@@ -149,8 +147,9 @@
       </widget>
     </child>
   </widget>
-  <widget class="Gtk.Window" id="Turing.TuringDisplay" design-size="705 525">
+  <widget class="Gtk.Window" id="Turing.TuringDisplay" design-size="795 525">
     <property name="MemberName" />
+    <property name="WidthRequest">700</property>
     <property name="Title" translatable="yes">TuringDisplay</property>
     <property name="WindowPosition">CenterOnParent</property>
     <child>
@@ -169,7 +168,7 @@
                 <property name="MemberName" />
                 <property name="ShadowType">None</property>
                 <child>
-                  <widget class="Gtk.DrawingArea" id="turing_code">
+                  <widget class="Gtk.DrawingArea" id="turingCode">
                     <property name="MemberName" />
                   </widget>
                 </child>
@@ -182,14 +181,66 @@
           </packing>
         </child>
         <child>
-          <widget class="Gtk.DrawingArea" id="turingAria">
+          <widget class="Gtk.Button" id="nextStepBtn">
             <property name="MemberName" />
-            <property name="WidthRequest">690</property>
-            <property name="HeightRequest">75</property>
+            <property name="CanFocus">True</property>
+            <property name="Type">TextOnly</property>
+            <property name="Label" translatable="yes">Наступний крок</property>
+            <property name="UseUnderline">True</property>
           </widget>
           <packing>
             <property name="X">5</property>
-            <property name="Y">425</property>
+            <property name="Y">375</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.Button" id="runToEnd">
+            <property name="MemberName" />
+            <property name="CanFocus">True</property>
+            <property name="Type">TextOnly</property>
+            <property name="Label" translatable="yes">Запустити до кінця без зупинок</property>
+            <property name="UseUnderline">True</property>
+          </widget>
+          <packing>
+            <property name="X">120</property>
+            <property name="Y">375</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.Button" id="showLog">
+            <property name="MemberName" />
+            <property name="CanFocus">True</property>
+            <property name="Type">TextOnly</property>
+            <property name="Label" translatable="yes">Показати лог виконання программи</property>
+            <property name="UseUnderline">True</property>
+          </widget>
+          <packing>
+            <property name="X">330</property>
+            <property name="Y">375</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.ScrolledWindow" id="turingAruaContainer">
+            <property name="MemberName" />
+            <property name="WidthRequest">690</property>
+            <property name="HeightRequest">35</property>
+            <property name="CanFocus">True</property>
+            <property name="ShadowType">In</property>
+            <child>
+              <widget class="Gtk.Viewport" id="GtkViewport1">
+                <property name="MemberName" />
+                <property name="ShadowType">None</property>
+                <child>
+                  <widget class="Gtk.DrawingArea" id="turingAria">
+                    <property name="MemberName" />
+                  </widget>
+                </child>
+              </widget>
+            </child>
+          </widget>
+          <packing>
+            <property name="X">5</property>
+            <property name="Y">430</property>
           </packing>
         </child>
       </widget>

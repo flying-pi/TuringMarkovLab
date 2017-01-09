@@ -42,7 +42,7 @@ public partial class MainWindow
 		this.GtkScrolledWindow.ShadowType = ((global::Gtk.ShadowType)(1));
 		// Container child GtkScrolledWindow.Gtk.Container+ContainerChild
 		this.programTexton = new global::Gtk.TextView();
-		this.programTexton.Buffer.Text = "'*a'|->'b'\n'*b'->'b*'\n'*c'->'c*'\n'*d'->'d*'\n'*'|->\n'a'->'a*'";
+		this.programTexton.Buffer.Text = "q1 '0'->q1 '1' R\nq1 '1'->q1 '2' R\nq1 '2'->q1 '0' R";
 		this.programTexton.CanFocus = true;
 		this.programTexton.Name = "programTexton";
 		this.GtkScrolledWindow.Add(this.programTexton);
@@ -55,7 +55,7 @@ public partial class MainWindow
 		this.initState.WidthRequest = 790;
 		this.initState.CanFocus = true;
 		this.initState.Name = "initState";
-		this.initState.Text = global::Mono.Unix.Catalog.GetString("dcadca");
+		this.initState.Text = global::Mono.Unix.Catalog.GetString("11220011122002102100102010201010102010201020100201010102010201201112121210021120100102010101021020010101010201010100102010101010210020101111212121212110102010201212102020200202202222202");
 		this.initState.IsEditable = true;
 		this.fixed1.Add(this.initState);
 		global::Gtk.Fixed.FixedChild w3 = ((global::Gtk.Fixed.FixedChild)(this.fixed1[this.initState]));
@@ -119,8 +119,7 @@ public partial class MainWindow
 		w9.X = 610;
 		w9.Y = 285;
 		this.Add(this.fixed1);
-		if ((this.Child != null))
-		{
+		if ((this.Child != null)) {
 			this.Child.ShowAll();
 		}
 		this.DefaultWidth = 805;
