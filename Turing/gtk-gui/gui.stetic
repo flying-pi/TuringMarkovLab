@@ -246,4 +246,24 @@ q1 '2'-&gt;q1 '0' R</property>
       </widget>
     </child>
   </widget>
+  <widget class="Gtk.Window" id="Turing.LogWindow" design-size="400 300">
+    <property name="MemberName" />
+    <property name="Title" translatable="yes">LogWindow</property>
+    <property name="WindowPosition">CenterOnParent</property>
+    <child>
+      <widget class="Gtk.ScrolledWindow" id="GtkScrolledWindow">
+        <property name="MemberName" />
+        <property name="ShadowType">In</property>
+        <child>
+          <widget class="Gtk.TextView" id="logWindow">
+            <property name="MemberName" />
+            <property name="CanFocus">True</property>
+            <property name="ShowScrollbars">True</property>
+            <property name="Editable">False</property>
+            <property name="Text" translatable="yes" />
+          </widget>
+        </child>
+      </widget>
+    </child>
+  </widget>
 </stetic-interface>

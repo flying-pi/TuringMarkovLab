@@ -7,13 +7,17 @@ namespace Turing
 
 	public class TuringMoveEventArgs : EventArgs
 	{
-		public TuringMoveEventArgs(List<string> _elements, int _currentPosition)
+		public TuringMoveEventArgs(List<string> _elements, int _currentPosition,int _currentComand, int _cureentRow)
 		{
 			elements = _elements;
 			currentPosition = _currentPosition;
+			currentComand = _currentComand;
+			cureentRow = _cureentRow;
 		}
 		public List<string> elements;
 		public int currentPosition;
+		public int currentComand;
+		public int cureentRow;
 	}
 
 	public class TuringAlg : IAlghoritm
@@ -28,6 +32,8 @@ namespace Turing
 		int currentMachineState = 0;
 		int zeroPosition = 0;
 
+		FormalTuringProgramm formalProgram;
+
 		public TuringAlg(string rawCode)
 		{
 			while (rawCode.Contains("  "))
@@ -35,6 +41,8 @@ namespace Turing
 			List<string> comandsList = parseComandList(rawCode);
 			parseComandsAndAlphabits(comandsList);
 			parseProgram(comandsList);
+			generateFormalProgram();
+
 		}
 
 		public string calculate(string initState)
@@ -53,8 +61,7 @@ namespace Turing
 			if (type.Count == 0 || type[type.Count - 1] != Constants.emptyTuringSymbol)
 				type.Add(Constants.emptyTuringSymbol);
 			currentPosition = 0;
-			if(MoveEvent!=null)
-				MoveEvent(this, new TuringMoveEventArgs(type, zeroPosition + currentPosition));
+
 		}
 
 		public string getCurrentState()
@@ -70,6 +77,9 @@ namespace Turing
 			currentPosition = 0;
 			zeroPosition = 0;
 			currentMachineState = 1;
+			if (MoveEvent != null) {
+				MoveEvent(this, new TuringMoveEventArgs(type, zeroPosition + currentPosition, currentMachineState, alphabitIndex(type[zeroPosition + currentPosition])));
+			}
 		}
 
 		public bool nextStep()
@@ -106,10 +116,16 @@ namespace Turing
 			while ((zeroPosition + currentPosition) >= type.Count)
 				type.Add(Constants.emptyTuringSymbol);
 			currentMachineState = currentStep.newState;
-			if (MoveEvent != null)
-				MoveEvent(this, new TuringMoveEventArgs(type, zeroPosition + currentPosition));
+			if (MoveEvent != null) {
+				MoveEvent(this, new TuringMoveEventArgs(type, zeroPosition + currentPosition, currentMachineState, alphabitIndex(type[zeroPosition + currentPosition])));
+			}
 
 			return true;
+		}
+
+		public FormalTuringProgramm getFormalProgramm()
+		{
+			return formalProgram;
 		}
 
 		private void parseProgram(List<string> comandsList)
@@ -137,6 +153,33 @@ namespace Turing
 				newComand.isEnd = false;
 				newComand.move = toData.Length == 2 ? moveType.none : ((toData[2]).Equals("R") ? moveType.right : moveType.left);
 				programm[comandIndex(fromData[0]), alphabitIndex(fromData[1])] = newComand;
+			}
+		}
+
+		private void generateFormalProgram()
+		{
+			formalProgram = new FormalTuringProgramm();
+			formalProgram.alphabit = alphabit;
+			formalProgram.comandCount = comands.Length;
+			formalProgram.comandTable = new string[comands.Length, alphabit.Length];
+			for (int i = 0; i < comands.Length; i++) {
+				for (int j = 0; j < alphabit.Length; j++) {
+					ComandDescription programInstruction = programm[i, j];
+					string item;
+					if (programInstruction == null) {
+						item = "none";
+					} else {
+						item = "q" + i.ToString() + " '" + alphabit[j] + "'->";
+						if (i > 0) {
+							item += "q" + programInstruction.newState + " '" + alphabit[programInstruction.newSymbol] + "' ";
+							if (programInstruction.move != moveType.none)
+								item += programInstruction.move == moveType.right ? "R" : "L";
+						} else {
+							item += "exit";
+						}
+					}
+					formalProgram.comandTable[i, j] = item;
+				}
 			}
 		}
 
@@ -199,6 +242,12 @@ namespace Turing
 
 	}
 
+	public class FormalTuringProgramm
+	{
+		public int comandCount;
+		public string[] alphabit;
+		public string[,] comandTable;
+	}
 
 	public enum moveType
 	{

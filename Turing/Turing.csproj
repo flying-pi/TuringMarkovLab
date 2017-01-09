@@ -55,6 +55,8 @@
     <Compile Include="Constants.cs" />
     <Compile Include="MarkovAlg.cs" />
     <Compile Include="IAlghoritm.cs" />
+    <Compile Include="LogWindow.cs" />
+    <Compile Include="gtk-gui\Turing.LogWindow.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
