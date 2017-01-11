@@ -28,10 +28,12 @@ public partial class MainWindow : Gtk.Window
 		else alg = new MarkovAlg(sourceCode);
 		string initStateStr = initState.Text;
 		initState.Text = alg.calculate(initStateStr);
-		TuringDisplay display = new TuringDisplay();
-		alg.setInitState(initStateStr);
-		display.setCurrentTuringAlg((Turing.TuringAlg)alg);
-		display.Show();
+		if (obj == turingBtn) {
+			TuringDisplay display = new TuringDisplay();
+			alg.setInitState(initStateStr);
+			display.setCurrentTuringAlg((Turing.TuringAlg)alg);
+			display.Show();
+		}
 	}
 
 	private void onMarkovClick(object obj, EventArgs args)

@@ -20,11 +20,16 @@ namespace Turing
 
 		private global::Gtk.DrawingArea turingAria;
 
+		private global::Gtk.Expander expander1;
+
+		private global::Gtk.Label GtkLabel;
+
 		protected virtual void Build()
 		{
 			global::Stetic.Gui.Initialize(this);
 			// Widget Turing.TuringDisplay
-			this.WidthRequest = 700;
+			this.WidthRequest = 1400;
+			this.HeightRequest = 800;
 			this.Name = "Turing.TuringDisplay";
 			this.Title = global::Mono.Unix.Catalog.GetString("TuringDisplay");
 			this.WindowPosition = ((global::Gtk.WindowPosition)(4));
@@ -34,8 +39,8 @@ namespace Turing
 			this.fixed2.HasWindow = false;
 			// Container child fixed2.Gtk.Fixed+FixedChild
 			this.scrolledwindow1 = new global::Gtk.ScrolledWindow();
-			this.scrolledwindow1.WidthRequest = 690;
-			this.scrolledwindow1.HeightRequest = 350;
+			this.scrolledwindow1.WidthRequest = 1390;
+			this.scrolledwindow1.HeightRequest = 710;
 			this.scrolledwindow1.CanFocus = true;
 			this.scrolledwindow1.Name = "scrolledwindow1";
 			this.scrolledwindow1.ShadowType = ((global::Gtk.ShadowType)(1));
@@ -60,7 +65,7 @@ namespace Turing
 			this.fixed2.Add(this.nextStepBtn);
 			global::Gtk.Fixed.FixedChild w5 = ((global::Gtk.Fixed.FixedChild)(this.fixed2[this.nextStepBtn]));
 			w5.X = 5;
-			w5.Y = 375;
+			w5.Y = 720;
 			// Container child fixed2.Gtk.Fixed+FixedChild
 			this.runToEnd = new global::Gtk.Button();
 			this.runToEnd.CanFocus = true;
@@ -70,7 +75,7 @@ namespace Turing
 			this.fixed2.Add(this.runToEnd);
 			global::Gtk.Fixed.FixedChild w6 = ((global::Gtk.Fixed.FixedChild)(this.fixed2[this.runToEnd]));
 			w6.X = 120;
-			w6.Y = 375;
+			w6.Y = 720;
 			// Container child fixed2.Gtk.Fixed+FixedChild
 			this.showLog = new global::Gtk.Button();
 			this.showLog.CanFocus = true;
@@ -80,10 +85,10 @@ namespace Turing
 			this.fixed2.Add(this.showLog);
 			global::Gtk.Fixed.FixedChild w7 = ((global::Gtk.Fixed.FixedChild)(this.fixed2[this.showLog]));
 			w7.X = 330;
-			w7.Y = 375;
+			w7.Y = 720;
 			// Container child fixed2.Gtk.Fixed+FixedChild
 			this.turingAruaContainer = new global::Gtk.ScrolledWindow();
-			this.turingAruaContainer.WidthRequest = 690;
+			this.turingAruaContainer.WidthRequest = 1390;
 			this.turingAruaContainer.HeightRequest = 35;
 			this.turingAruaContainer.CanFocus = true;
 			this.turingAruaContainer.Name = "turingAruaContainer";
@@ -99,13 +104,26 @@ namespace Turing
 			this.fixed2.Add(this.turingAruaContainer);
 			global::Gtk.Fixed.FixedChild w11 = ((global::Gtk.Fixed.FixedChild)(this.fixed2[this.turingAruaContainer]));
 			w11.X = 5;
-			w11.Y = 430;
+			w11.Y = 760;
+			// Container child fixed2.Gtk.Fixed+FixedChild
+			this.expander1 = new global::Gtk.Expander(null);
+			this.expander1.CanFocus = true;
+			this.expander1.Name = "expander1";
+			this.GtkLabel = new global::Gtk.Label();
+			this.GtkLabel.Name = "GtkLabel";
+			this.GtkLabel.UseUnderline = true;
+			this.expander1.LabelWidget = this.GtkLabel;
+			this.fixed2.Add(this.expander1);
+			global::Gtk.Fixed.FixedChild w12 = ((global::Gtk.Fixed.FixedChild)(this.fixed2[this.expander1]));
+			w12.X = 614;
+			w12.Y = 144;
 			this.Add(this.fixed2);
-			if ((this.Child != null)) {
+			if ((this.Child != null))
+			{
 				this.Child.ShowAll();
 			}
-			this.DefaultWidth = 795;
-			this.DefaultHeight = 525;
+			this.DefaultWidth = 1400;
+			this.DefaultHeight = 800;
 			this.Show();
 		}
 	}
