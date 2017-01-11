@@ -29,8 +29,8 @@ public partial class MainWindow : Gtk.Window
 		string initStateStr = initState.Text;
 		initState.Text = alg.calculate(initStateStr);
 		TuringDisplay display = new TuringDisplay();
-		display.setCurrentTuringAlg((Turing.TuringAlg)alg);
 		alg.setInitState(initStateStr);
+		display.setCurrentTuringAlg((Turing.TuringAlg)alg);
 		display.Show();
 	}
 

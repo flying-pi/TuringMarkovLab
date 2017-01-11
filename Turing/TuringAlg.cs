@@ -7,7 +7,7 @@ namespace Turing
 
 	public class TuringMoveEventArgs : EventArgs
 	{
-		public TuringMoveEventArgs(List<string> _elements, int _currentPosition,int _currentComand, int _cureentRow)
+		public TuringMoveEventArgs(List<string> _elements, int _currentPosition, int _currentComand, int _cureentRow)
 		{
 			elements = _elements;
 			currentPosition = _currentPosition;
@@ -38,6 +38,14 @@ namespace Turing
 		{
 			while (rawCode.Contains("  "))
 				rawCode = rawCode.Replace("  ", " ");
+
+
+			while (rawCode.Contains(" ->"))
+				rawCode = rawCode.Replace(" ->", "->");
+
+			while (rawCode.Contains("-> "))
+				rawCode = rawCode.Replace("-> ", "->");
+
 			List<string> comandsList = parseComandList(rawCode);
 			parseComandsAndAlphabits(comandsList);
 			parseProgram(comandsList);
@@ -162,6 +170,7 @@ namespace Turing
 			formalProgram.alphabit = alphabit;
 			formalProgram.comandCount = comands.Length;
 			formalProgram.comandTable = new string[comands.Length, alphabit.Length];
+			formalProgram.comandsName = comands;
 			for (int i = 0; i < comands.Length; i++) {
 				for (int j = 0; j < alphabit.Length; j++) {
 					ComandDescription programInstruction = programm[i, j];
@@ -169,9 +178,9 @@ namespace Turing
 					if (programInstruction == null) {
 						item = "none";
 					} else {
-						item = "q" + i.ToString() + " '" + alphabit[j] + "'->";
+						item = comands[i] + " '" + alphabit[j] + "'->";
 						if (i > 0) {
-							item += "q" + programInstruction.newState + " '" + alphabit[programInstruction.newSymbol] + "' ";
+							item += comands[programInstruction.newState] + " '" + alphabit[programInstruction.newSymbol] + "' ";
 							if (programInstruction.move != moveType.none)
 								item += programInstruction.move == moveType.right ? "R" : "L";
 						} else {
@@ -190,7 +199,8 @@ namespace Turing
 			foreach (var line in splitResult) {
 				var lineSplit = line.Split(new char[] { '\t' });
 				foreach (var s in lineSplit) {
-					comandsList.Add(s);
+					if (s.Length > 2)
+						comandsList.Add(s);
 				}
 			}
 			return comandsList;
@@ -246,6 +256,7 @@ namespace Turing
 	{
 		public int comandCount;
 		public string[] alphabit;
+		public string[] comandsName;
 		public string[,] comandTable;
 	}
 

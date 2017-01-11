@@ -25,7 +25,7 @@ namespace Turing
 			nextStepBtn.Clicked += this.onNextStep;
 			showLog.Clicked += this.onLogBtnClick;
 			runToEnd.Clicked += this.onRunToEndClick;
-			turingAria.DoubleBuffered =true;
+			turingAria.DoubleBuffered = true;
 			turingAria.ExposeEvent += this.HandleDrawingAreaExposeEvent;
 			turingCode.ExposeEvent += this.HandleDrawingAreaExposeEvent;
 		}
@@ -56,8 +56,8 @@ namespace Turing
 			this.selectRow = e.cureentRow;
 			redrawType(e.elements, e.currentPosition);
 			drawProgramm();
-			log.Add("Comand\t::\t"+programm.comandTable[selectComand, selectRow]);
-			log.Add("\t"+turingAlg.getCurrentState());
+			log.Add("Comand\t::\t" + programm.comandTable[selectComand, selectRow]);
+			log.Add("\t" + turingAlg.getCurrentState());
 			log.Add("");
 		}
 
@@ -67,13 +67,14 @@ namespace Turing
 			lastCurrentPosition = currentPosition;
 			int heigth = turingAruaContainer.SizeRequest().Height;
 			int width = heigth * items.Count;
-			turingAria.SetSizeRequest(width, heigth);
+			if (turingAria.SizeRequest().Height != heigth || turingAria.SizeRequest().Width != width)
+				turingAria.SetSizeRequest(width, heigth);
 
 			turingAria.GdkWindow.BeginPaintRegion(Region.Rectangle(new Rectangle(0, 0, width, heigth)));
 			for (int i = 0; i < items.Count; i++) {
-				
+
 				Gdk.GC gc = new Gdk.GC((Drawable)turingAria.GdkWindow);
-				if (i == currentPosition)
+				if (i == currentPosition && !isEnd)
 					gc.RgbFgColor = new Gdk.Color(108, 17, 160);
 				else
 					gc.RgbFgColor = new Gdk.Color(100, 100, 255);
@@ -82,12 +83,15 @@ namespace Turing
 				gc = new Gdk.GC((Drawable)turingAria.GdkWindow);
 				gc.RgbFgColor = new Gdk.Color(0, 255, 0);
 				Pango.Layout l = new Pango.Layout(turingAria.PangoContext);
-				l.SetText(items[i]);
+				if (items[i] == "@")
+					l.SetText("  ");
+				else
+					l.SetText(items[i]);
 				l.Alignment = Pango.Alignment.Center;
 
 				int w, h;
 				l.GetPixelSize(out w, out h);
-				turingAria.GdkWindow.DrawLayout(gc, i * heigth+(heigth-h)/2,(heigth - w) / 2 , l);
+				turingAria.GdkWindow.DrawLayout(gc, i * heigth + (heigth - h) / 2, (heigth - w) / 2, l);
 			}
 			turingAria.GdkWindow.EndPaint();
 		}
@@ -98,7 +102,7 @@ namespace Turing
 				return;
 			turingCode.GdkWindow.Clear();
 			int w = 30 + programm.comandCount * 100;
-			int h = 30 + programm.alphabit.Length*30;
+			int h = 30 + programm.alphabit.Length * 30;
 			int textW, textH;
 			turingCode.SetSizeRequest(w, h);
 			w = turingCode.SizeRequest().Width;
@@ -111,7 +115,7 @@ namespace Turing
 
 			gc = new Gdk.GC((Drawable)turingCode.GdkWindow);
 			gc.RgbFgColor = new Gdk.Color(206, 112, 35);
-			turingCode.GdkWindow.DrawRectangle(gc, true, 0, 30, 30, h-30);
+			turingCode.GdkWindow.DrawRectangle(gc, true, 0, 30, 30, h - 30);
 
 			if (selectRow > -1 && selectComand > -1) {
 				gc = new Gdk.GC((Drawable)turingCode.GdkWindow);
@@ -142,42 +146,42 @@ namespace Turing
 
 			gc = new Gdk.GC((Drawable)turingCode.GdkWindow);
 			gc.RgbFgColor = new Gdk.Color(206, 112, 35);
-			turingCode.GdkWindow.DrawRectangle(gc, true, 30, 0, w-30, 30);
+			turingCode.GdkWindow.DrawRectangle(gc, true, 30, 0, w - 30, 30);
 			for (int i = 0; i < programm.comandCount; i++) {
 				gc = new Gdk.GC((Drawable)turingCode.GdkWindow);
 				gc.RgbFgColor = new Gdk.Color(3, 86, 89);
-				turingCode.GdkWindow.DrawLine(gc, 30+i*100, 0, 30 + i * 100, h);
+				turingCode.GdkWindow.DrawLine(gc, 30 + i * 100, 0, 30 + i * 100, h);
 
 
 				gc = new Gdk.GC((Drawable)turingCode.GdkWindow);
 				gc.RgbFgColor = new Gdk.Color(0, 255, 0);
 				Pango.Layout l = new Pango.Layout(turingCode.PangoContext);
-				l.SetText("q" + i.ToString());
+				l.SetText(programm.comandsName[i]);
 				l.Alignment = Pango.Alignment.Center;
 
 				l.GetPixelSize(out textW, out textH);
-				turingCode.GdkWindow.DrawLayout(gc,30+ 100*i+(100 - textW) / 2,  (30 - textH) / 2, l);
+				turingCode.GdkWindow.DrawLayout(gc, 30 + 100 * i + (100 - textW) / 2, (30 - textH) / 2, l);
 
 			}
 
 			for (int i = 0; i < programm.comandCount; i++) {
 				for (int j = 0; j < programm.alphabit.Length; j++) {
 					int startX = 30 + 100 * i;
-					int startY =30 + 30 * j;
+					int startY = 30 + 30 * j;
 					if (i == selectComand && j == selectRow) {
 						gc = new Gdk.GC((Drawable)turingCode.GdkWindow);
 						gc.RgbFgColor = new Gdk.Color(108, 17, 160);
-						turingCode.GdkWindow.DrawRectangle(gc, true, startX, startY,100, 30);
+						turingCode.GdkWindow.DrawRectangle(gc, true, startX, startY, 100, 30);
 					}
 					gc = new Gdk.GC((Drawable)turingCode.GdkWindow);
 					gc.RgbFgColor = new Gdk.Color(42, 24, 61);
 					Pango.Layout l = new Pango.Layout(turingCode.PangoContext);
-					l.SetText(programm.comandTable[i,j]);
+					l.SetText(programm.comandTable[i, j]);
 					l.Alignment = Pango.Alignment.Center;
 					l.Context.FontDescription.Style = Pango.Style.Oblique;
 
 					l.GetPixelSize(out textW, out textH);
-					turingCode.GdkWindow.DrawLayout(gc, startX + (100 - textW) / 2, startY+(30 - textH) / 2, l);
+					turingCode.GdkWindow.DrawLayout(gc, startX + (100 - textW) / 2, startY + (30 - textH) / 2, l);
 				}
 			}
 
